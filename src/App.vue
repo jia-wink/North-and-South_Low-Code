@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HeadViewVue></HeadViewVue>
+    <div class="content-box">
+        <LeftViewVue></LeftViewVue>
+        <CenterViewVue></CenterViewVue>
+        <RightViewVue></RightViewVue>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeadViewVue from './view/HeadView.vue';
+import LeftViewVue from './view/LeftView.vue';
+import CenterViewVue from './view/CenterView.vue';
+import RightViewVue from './view/RightView.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeadViewVue,
+    LeftViewVue,
+    CenterViewVue,
+    RightViewVue
   }
 }
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    .content-box{
+        display: flex;
+        height: calc(100vh - 80px);
+    }
 </style>
