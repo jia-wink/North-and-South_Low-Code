@@ -25,11 +25,13 @@ export default {
         }
     },
     methods:{
+        // 开始拖动的事件
         dragStart(e){
             let info = {
                 name:e.target.getAttribute('data-name'),
                 type:e.target.getAttribute('data-type'),
             }
+            // 这里就是将拖拽组件的信息放在拖拽对象上
             e.dataTransfer.setData('info',JSON.stringify(info))
             // console.log(e);
         }

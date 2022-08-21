@@ -1,9 +1,10 @@
 <template>
     <!-- 这里很巧妙地定义了一个点击事件，当内部的组件被点击的时候会冒泡到外部触发点击事件 -->
-    <div class="wrapper" @dragover="dragOver" @drop="drop" @click="foucusComp">
+    <div id="canvasBox" class="wrapper" @dragover="dragOver" @drop="drop" @click="foucusComp">
         <div :id="item.info.id" v-for="(item, index) in components" :key="index"></div>
         <!-- 定义一个鼠标选中时才会显示的div -->
-        <div id="borderBox"  class="foucusStyle" v-if="focusComp" :style="focusStyle" @mousedown='mouseDown'></div>
+        <!-- 定义了@contextmenu鼠标右击事件，@contextmenu.prevent是阻止默认行为，比如浏览器的默认右键菜单等 -->
+        <div id="borderBox"  class="foucusStyle" v-if="focusComp" :style="focusStyle" @mousedown='mouseDown' @contextmenu.prevent="rightClick"></div>
     </div>
 </template>
 
@@ -31,6 +32,7 @@ export default {
         },
         // 鼠标松开的事件
         drop(e) {
+            // console.log(e);
             e.preventDefault()
             // 获取到拖过来的组件的数据
             let info = JSON.parse(e.dataTransfer.getData('info'))
@@ -60,6 +62,7 @@ export default {
             // 在画布挂载组件
             mountedComponent(component)
         },
+        // 当点击组件的的时候
         foucusComp(e){
             // 通过正则表达式匹配ID
             // console.log(e.target);
@@ -85,6 +88,8 @@ export default {
                 console.log('找不到呜呜呜');
                 this.focusComp = null
             }
+            // 将这个组件传递到页面右侧编辑区域
+            this.$emit('throwComp',this.focusComp)
         },
         // 鼠标按下的事件
         mouseDown(e){
@@ -107,29 +112,83 @@ export default {
             let comp = document.getElementById(this.focusComp.info.id)
             // 然后修改组件的样式,Object可以实现对象属性的合并（部分更新），在这里就是将新的坐标位置更新到组件的样式上
             Object.assign(comp.style,{
-                left:this.focusComp.position.left + offsetX + 'px',
-                top:this.focusComp.position.top + offsetY + 'px'
+                // (这是加了限制边界方法之后的数据)
+                left:this.boundaryLimit('x',this.focusComp.position.left + offsetX,this.focusComp)+ 'px',
+                top:this.boundaryLimit('y',this.focusComp.position.top + offsetY,this.focusComp)+ 'px',
             })
 
             // 设置鼠标选中框移动位置
             let borderBox = document.getElementById('borderBox')
             // 然后修改组件的样式,Object可以实现对象属性的合并（部分更新），在这里就是将新的坐标位置更新到组件的样式上
             Object.assign(borderBox.style,{
-                left:this.focusComp.position.left + offsetX + 'px',
-                top:this.focusComp.position.top + offsetY + 'px'
+                // (这是加了限制边界方法之后的数据)
+                left:this.boundaryLimit('x',this.focusComp.position.left + offsetX,this.focusComp)+ 'px',
+                top:this.boundaryLimit('y',this.focusComp.position.top + offsetY,this.focusComp)+ 'px'
             })
         },
         // 鼠标松开的事件
         mouseUp(e){
-            console.log(e);
+            // console.log(e);
             // 鼠标松开之后，要移除监听事件
             document.removeEventListener('mousemove',this.mouseMove,true) 
             document.removeEventListener('mouseup',this.mouseUp,true) 
 
-            // 更新组件的数据
-            this.focusComp.position.left = this.focusComp.position.left +(e.clientX - this.starPosition.x)
-            this.focusComp.position.top = this.focusComp.position.top +(e.clientY - this.starPosition.y)
-        }
+            // 更新组件的数据(这是加了限制边界方法之后的数据)
+            this.focusComp.position.left = this.boundaryLimit('x',this.focusComp.position.left +(e.clientX - this.starPosition.x),this.focusComp)
+            this.focusComp.position.top = this.boundaryLimit('y',this.focusComp.position.top +(e.clientY - this.starPosition.y),this.focusComp)
+            // this.focusComp.position.left = this.focusComp.position.left +(e.clientX - this.starPosition.x)
+            // this.focusComp.position.top = this.focusComp.position.top +(e.clientY - this.starPosition.y)
+            // console.log(this.focusComp.position.left +(e.clientX - this.starPosition.x));
+            // console.log(this.focusComp.position.top +(e.clientY - this.starPosition.y));
+        },
+        // 限定组件移动的边界（只能在中间的画布内）(type表示偏移的是x轴还是y轴，num表示偏移量，comp表示当前组件)
+        boundaryLimit(type,num,comp){
+            // console.log('num =' +num);
+            // 获取中间画布的宽高
+            let canvas = document.getElementById('canvasBox')
+            let canvasWidth = canvas.clientWidth
+            let canvasHeight = canvas.clientHeight
+
+            // 获取当前组件的宽高
+            let compWidth = comp.attribute.find(item => item.key === 'width').value
+            let compHeight = comp.attribute.find(item => item.key === 'height').value
+
+            // 计算组件可以移动的边界值
+            let maxX = canvasWidth - compWidth
+            let maxY = canvasHeight - compHeight
+
+            // console.log('maxX =' +maxX);
+            // console.log('maxY =' +maxY);
+            // 定义一个当前组件的偏移量
+            let lastNum = 0
+
+            if(type === 'x'){
+                if(num<0){
+                    lastNum = 0
+                }else if(num>maxX){
+                    lastNum = maxX
+                }else{
+                    lastNum = num
+                }
+            }else if(type === 'y'){
+                if(num<0){
+                    lastNum = 0
+                }else if(num>maxY){
+                    lastNum = maxY
+                }else{
+                    lastNum = num
+                }
+            }
+            // 返回偏移量
+            return lastNum
+        },
+        // 鼠标右击的事件
+        rightClick(){
+            if(confirm('你确定要删除这个组件嘛')){
+                document.getElementById(this.focusComp.info.id).remove()
+            }
+            this.focusComp = null
+        }   
     },
     computed:{
         // 设置鼠标点击组件之后的样式
@@ -149,7 +208,7 @@ export default {
                 });
                 return {
                     // 整理样式return出去
-                        width:`${compHeight}px`,
+                        width:`${compWidth}px`,
                         height:`${compHeight}px`,
                         left:`${this.focusComp.position.left}px`,
                         top:`${this.focusComp.position.top}px`,

@@ -3,8 +3,8 @@
     <HeadViewVue></HeadViewVue>
     <div class="content-box">
         <LeftViewVue></LeftViewVue>
-        <CenterViewVue></CenterViewVue>
-        <RightViewVue></RightViewVue>
+        <CenterViewVue @throwComp="getComp"></CenterViewVue>
+        <RightViewVue :reviseComp="passComp"></RightViewVue>
     </div>
   </div>
 </template>
@@ -22,6 +22,17 @@ export default {
     LeftViewVue,
     CenterViewVue,
     RightViewVue
+  },
+  data(){
+    return{
+        passComp: null
+    }
+  },
+  methods:{
+    getComp(comp){
+        this.passComp = comp
+        // console.log(this.passComp);
+    }
   }
 }
 </script>

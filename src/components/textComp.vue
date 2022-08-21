@@ -25,6 +25,7 @@ export default {
     },
     data(){
         return{
+            // 将数据转换为Js对象
             dataMsg:JSON.parse(this.data).txt
         }
     },
@@ -34,13 +35,21 @@ export default {
                 width:this.width+'px',
                 height:this.height+'px',
                 fontSize:this.fontSize+'px',
-                color:this.color+'px',
+                color:this.color,
+                // lineHeight:this.height/2+'px'
             }
         }
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.warpper{
+    overflow: hidden;
+}
+span{
+    /* overflow: hidden; */
+    /* padding: 10px; */
+    /* text-align: center; */
+}
 </style>

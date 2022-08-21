@@ -29,6 +29,7 @@ export const mountedComponent = (component) => {
     }
     // 整合组件挂载到画布的挂载点上
     // 先等待挂载点加载完之后再进行实例化
+    // console.log(component.attribute);
     setTimeout(()=>{
         new Vue({
             name:id.toString(),
@@ -51,9 +52,9 @@ export const mountedComponent = (component) => {
                 this.$el.style.top = `${component.position.top}px`
                 // 设置层级
                 this.$el.style.zIndex = `${component.position.zIndex}px`
-                // 设置组件宽高
-                this.$el.style.width = `${component.position.compWidth}px`
-                this.$el.style.height = `${component.position.compHeight}px`
+                // 设置组件宽高,这里的代码存在一些问题
+                // this.$el.style.width = `${component.position.compWidth}px`
+                // this.$el.style.height = `${component.position.compHeight}px`
             }
         })
     },1)
