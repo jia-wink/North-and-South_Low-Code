@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <HeadViewVue></HeadViewVue>
+    <HeadViewVue @nightDark='nightDark'></HeadViewVue>
     <div class="content-box">
-        <LeftViewVue></LeftViewVue>
-        <CenterViewVue @throwComp="getComp"></CenterViewVue>
-        <RightViewVue :reviseComp="passComp"></RightViewVue>
+        <LeftViewVue ref="left"></LeftViewVue>
+        <CenterViewVue @throwComp="getComp" ref="center"></CenterViewVue>
+        <RightViewVue :reviseComp="passComp" ref="right"></RightViewVue>
     </div>
   </div>
 </template>
@@ -29,15 +29,38 @@ export default {
     }
   },
   methods:{
+    // 将center传出来的组件保存到data中
     getComp(comp){
         this.passComp = comp
         // console.log(this.passComp);
+    },
+    // 黑白模式
+    nightDark(){
+        // 控制全局样式
+        const leftRight = document.getElementById('app');
+        leftRight.classList.toggle('active')
+        // 控制左边样式
+        this.$refs.left.leftChange()
+        // 控制中间的样式
+        this.$refs.center.centerChange()
+        // 控制右边样式
+        this.$refs.right.rightChange()
+
     }
   }
 }
 </script>
 
 <style lang="less">
+    #app{
+        background-color: #f8f8f8;
+        color: #2b2b2b;
+        transition: 0.5s;
+    }
+    #app.active{
+    background: #2b2b2b;
+    color: #f8f8f8;
+}
     .content-box{
         display: flex;
         height: calc(100vh - 80px);

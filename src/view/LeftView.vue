@@ -34,6 +34,14 @@ export default {
             // 这里就是将拖拽组件的信息放在拖拽对象上
             e.dataTransfer.setData('info',JSON.stringify(info))
             // console.log(e);
+        },
+        // 日夜模式
+        leftChange(){
+            const menuStyle = document.getElementsByClassName('menuItem')
+            for(let i = 0;i<menuStyle.length;i++){
+                menuStyle[i].classList.toggle('active')
+            }
+            
         }
     }
 }
@@ -41,6 +49,7 @@ export default {
 <style lang="less" scoped>
     .wrapper{
         width: 245px;
+        margin-top: 10px;
         padding: 8px;
         display: flex;
         flex-wrap: wrap;
@@ -56,6 +65,10 @@ export default {
             line-height: 88px;
             // 设置鼠标移入之后的状态为一只手
             cursor: pointer;
+            transition: 0.5s;
+        }
+        .menuItem.active{
+                background-color: #606266;
         }
     }
 </style>

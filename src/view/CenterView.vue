@@ -1,6 +1,6 @@
 <template>
     <!-- 这里很巧妙地定义了一个点击事件，当内部的组件被点击的时候会冒泡到外部触发点击事件 -->
-    <div id="canvasBox" class="wrapper" @dragover="dragOver" @drop="drop" @click="foucusComp">
+    <div id="canvasBox" class="wrapperCenter" @dragover="dragOver" @drop="drop" @click="foucusComp">
         <div :id="item.info.id" v-for="(item, index) in components" :key="index"></div>
         <!-- 定义一个鼠标选中时才会显示的div -->
         <!-- 定义了@contextmenu鼠标右击事件，@contextmenu.prevent是阻止默认行为，比如浏览器的默认右键菜单等 -->
@@ -25,6 +25,12 @@ export default {
         }
     },
     methods: {
+        // 切换日间/夜间模式
+        centerChange(){
+            // 通过类名获取dom时,需要在后面加上索引值
+            const canvasStyle = document.getElementsByClassName('wrapperCenter')[0]
+            canvasStyle.classList.toggle('active')
+        },
         // 拖拽到画布的事件
         dragOver(e) {
             // 拖到画布之后，阻止默认行为，也就是让拖拽的元素可以让画布接收到
@@ -222,11 +228,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.wrapper {
+.wrapperCenter {
     flex: 1;
     background-color: #eee;
     position: relative;
+    transition: 0.5s;
+    z-index: 0;
 }
+.wrapperCenter.active{
+       background-color: rgb(114, 114, 114); 
+    }
 .foucusStyle{
     border: 1px solid skyblue;
     position: absolute;
