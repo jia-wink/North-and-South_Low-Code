@@ -278,8 +278,8 @@ export default {
 
 // 上传按钮的样式
     .container {
-            width: 485px;
-            height: 480px;
+            width: 300px;
+            height: 300px;
             display: flex; 
              /*换行  */
             flex-wrap: wrap;
