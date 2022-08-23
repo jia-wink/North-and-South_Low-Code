@@ -10,7 +10,7 @@
                     <!-- 如果是input类型 -->
                     <span class="lable">{{ item.name }}：</span>
                     <input class="inputStyle" type="text" v-if="item.type === 'input'" v-model="item.value"
-                        @change="updateComp">
+                        @change="updateComp" :style="inputStyle">
                     <!-- 如果是color类型 -->
                     <input class="inputStyle" type="color" name="" id="" v-if="item.type === 'color'"
                         v-model="item.value" @change="updateComp">
@@ -39,17 +39,27 @@ export default {
         headTab
     },
     props: {
-        reviseComp: Object
+        reviseComp: Object,
+        outNight: Boolean
     },
     data() {
         return {
             checkIndex: 0,
             // 组件的数据
-            dataStr: ''
+            dataStr: '',
+            // 判断外部是处于日间还是夜间模式
+            night: true
         }
     },
     computed: {
-
+        inputStyle(){
+            if(!this.outNight&this.outNight!=null){
+                return{
+                    color: '#cfd3dc',
+                    backgroundColor: '#2b2b2b'
+                }
+            }
+        }
     },
     methods: {
         checkTab(index) {
@@ -67,26 +77,32 @@ export default {
             mountedComponent(component)
             // console.log('ok');
         },
-        // 日夜模式
+        // 日夜模式(效果不好,不用了,直接用计算属性)
         rightChange() {
-            // 修改input标签样式
-            const inputStyle = document.getElementsByClassName('inputStyle')
-            for (let i = 0; i < inputStyle.length; i++) {
-                inputStyle[i].classList.toggle('active')
+            // 先判断有没有选中组件,如果没有的话就懒得改了
+            if (this.reviseComp) {
+                // this.night = !this.night
+                // // 修改input标签样式
+                // const inputStyle = document.getElementsByClassName('inputStyle')
+                // for (let i = 0; i < inputStyle.length; i++) {
+                //     inputStyle[i].classList.toggle('active')
+                // }
+                // // 修改textarea样式
+                // const textareaStyle = document.getElementsByClassName('dataBox')
+                // for (let i = 0; i < textareaStyle.length; i++) {
+                //     textareaStyle[i].classList.toggle('active')
+                // }
             }
-            // // 修改textarea样式
-            const textareaStyle = document.getElementsByClassName('dataBox')
-            for (let i = 0; i < textareaStyle.length; i++) {
-                textareaStyle[i].classList.toggle('active')
-            }
+            console.log(this.outNight);
+            console.log(this.night);
         }
     },
     watch: {
         // 监听组件的变化
         reviseComp(val) {
             // console.log(val);
-            this.dataStr = JSON.stringify(val.data)
-        }
+            // this.dataStr = JSON.stringify(val.data)
+        },
     }
 }
 </script>
@@ -124,7 +140,8 @@ export default {
             line-height: 30px;
             outline: none;
             padding: 0 15px;
-            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            transition: 0.5s;
+            // transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
 
             &.active {
                 color: #cfd3dc;

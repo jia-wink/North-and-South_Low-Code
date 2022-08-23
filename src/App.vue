@@ -4,7 +4,7 @@
     <div class="content-box">
         <LeftViewVue ref="left"></LeftViewVue>
         <CenterViewVue @throwComp="getComp" ref="center"></CenterViewVue>
-        <RightViewVue :reviseComp="passComp" ref="right"></RightViewVue>
+        <RightViewVue :reviseComp="passComp" ref="right" :outNight="night"></RightViewVue>
     </div>
   </div>
 </template>
@@ -25,6 +25,9 @@ export default {
   },
   data(){
     return{
+        // 日间和夜间模式(主要用来传递给右侧组件进行样式控制)
+        night:null,
+        // 要传递的组件
         passComp: null
     }
   },
@@ -36,6 +39,11 @@ export default {
     },
     // 黑白模式
     nightDark(){
+        if(this.night === null){
+            this.night = true
+        }
+        this.night = !this.night
+        // console.log(this.night);
         // 控制全局样式
         const leftRight = document.getElementById('app');
         leftRight.classList.toggle('active')
@@ -43,9 +51,8 @@ export default {
         this.$refs.left.leftChange()
         // 控制中间的样式
         this.$refs.center.centerChange()
-        // 控制右边样式
+        // 控制右边样式(效果不好,改用计算属性了)
         this.$refs.right.rightChange()
-
     }
   }
 }

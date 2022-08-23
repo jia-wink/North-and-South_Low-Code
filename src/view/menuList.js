@@ -3,11 +3,11 @@ const menu = [{
     name:'文本组件',
     type:'textComp'
 },{
-    name:'文本组件',
-    type:'textComp'
+    name:'图片组件',
+    type:'pictureComp'
 },{
-    name:'文本组件',
-    type:'textComp'
+    name:'Tab组件',
+    type:'tabComp'
 },{
     name:'文本组件',
     type:'textComp'
