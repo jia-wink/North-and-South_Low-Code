@@ -18,8 +18,24 @@
             </div>
             <!-- 数据 -->
             <div v-show="checkIndex === 1">
-                <textarea class="dataBox" name="" id="" cols="35" rows="10" v-model="dataStr"
+                <div class="container" v-if="reviseComp.data.type">
+                    <!-- <img src="./1.gif" alt="" class="picture"><img src="./1.gif" alt="" class="picture"><img src="./1.gif" alt="" class="picture"> -->
+                    <div class="upload-dragger" @click="clickInput" @dragover="fileDragover" @dragenter="fileDragenter" @dragleave="fileDrapleave" @drop="fileDrag">
+                        <!-- 阿里巴巴矢量图标库复制 -->
+                        <svg class="upload-icon" viewBox="0 0 1024 1024" width="65" height="65">
+                            <path
+                                d="M815.104 363.008a307.2 307.2 0 0 0-606.72 0A256 256 0 0 0 256 870.4h204.8v-204.8H358.4l153.6-204.8 153.6 204.8h-102.4v204.8h204.8a256 256 0 0 0 47.104-507.392z"
+                                fill="#8a8a8a"></path>
+                        </svg>
+                        <span class="upload-text">点击上传</span>
+                        <span class="upload-text">或将文件拖到此处</span>
+                    </div>
+                    <input  type="file" name=""  class="upload-input" @change="imgInput" id="upload-input">
+                </div>
+                <textarea v-if="reviseComp.data.txt" class="dataBox" name="" id="" cols="35" rows="10" v-model="dataStr"
                     @change="updateComp"></textarea>
+
+
             </div>
         </div>
         <!-- 没有选中组件时 -->
@@ -46,15 +62,16 @@ export default {
         return {
             checkIndex: 0,
             // 组件的数据
-            dataStr: '',
+            dataStr: Object,
             // 判断外部是处于日间还是夜间模式
             night: true
+            // 
         }
     },
     computed: {
-        inputStyle(){
-            if(!this.outNight&this.outNight!=null){
-                return{
+        inputStyle() {
+            if (!this.outNight & this.outNight != null) {
+                return {
                     color: '#cfd3dc',
                     backgroundColor: '#2b2b2b'
                 }
@@ -62,6 +79,7 @@ export default {
         }
     },
     methods: {
+        // 更换tab显示的内容
         checkTab(index) {
             // console.log(index);
             this.checkIndex = index
@@ -77,7 +95,7 @@ export default {
             mountedComponent(component)
             // console.log('ok');
             // 4.更新画布上的组件
-            this.$emit('updateComp',component)
+            this.$emit('updateComp', component)
         },
         // 日夜模式(效果不好,不用了,直接用计算属性)
         rightChange() {
@@ -97,13 +115,80 @@ export default {
             }
             // console.log(this.outNight);
             // console.log(this.night);
+        },
+        // 图片上传按钮被点击
+        imgInput(e) {
+            // console.log(e);
+            // if(e.dataTransfer.files){
+            //     let newimg = window.URL.createObjectURL(e.dataTransfer.files[0])
+            //     this.dataStr = newimg
+            //     this.updateComp()
+            // }else{
+            //     let newimg = window.URL.createObjectURL(e.target.files[0])
+            //     this.dataStr = newimg
+            //     this.updateComp()
+            // }
+            // let inputFile = document.getElementsByClassName('inputFile')[0]
+            // let newimg = document.createElement('img')
+            // let newimg = window.URL.createObjectURL(e.target.files[0])
+            // inputFile.parentNode.insertBefore(newimg,inputFile);
+            // this.dataStr = newimg
+            // this.updateComp()
+            this.updateFile(e.target.files)
+        },
+        // 更新图片
+        updateFile(e){
+            let newimg = window.URL.createObjectURL(e[0])
+            // inputFile.parentNode.insertBefore(newimg,inputFile);
+            this.dataStr = newimg
+            this.updateComp()
+        },
+        // 上传框点击触发"文件选择按钮"的点击
+        clickInput(){
+            // 被隐藏的" 文件选择按钮 "
+            let uploadInput = document.getElementById('upload-input')
+            // 触发文件选择器的点击
+            uploadInput.click()
+            // this.imgInput()
+        },
+        // 在 uploadDragger 内部有拖拽行为时
+        fileDragover(e){
+            // 清空默认事件
+            e.preventDefault()
+        },
+        // 拖拽进入 uploadDragger 时
+        fileDragenter(){
+            // 上传框
+            let uploadDragger = document.getElementsByClassName('upload-dragger')[0]
+            uploadDragger.classList.add('drag')
+        },
+        // 拖拽离开 uploadDragger 时
+        fileDrapleave(){
+            let uploadDragger = document.getElementsByClassName('upload-dragger')[0]
+            uploadDragger.classList.remove('drag')
+        },
+        // 拖拽松开时
+        fileDrag(e){
+            // 禁止默认行为 (有些浏览器会在新页面预览图片) 
+            e.preventDefault()
+            // console.log(e.dataTransfer.files)
+            let uploadDragger = document.getElementsByClassName('upload-dragger')[0]
+            uploadDragger.classList.remove('drag')
+            // this.imgInput(e)
+            // console.log(e);
+            this.updateFile(e.dataTransfer.files)
         }
     },
     watch: {
         // 监听组件的变化
         reviseComp(val) {
             // console.log(val);
-            this.dataStr = JSON.stringify(val.data)
+            try {
+                this.dataStr = JSON.stringify(val.data)
+            } catch (error) {
+                let noerr = '不可以报错哦'
+            }
+
         },
     }
 }
@@ -157,23 +242,20 @@ export default {
         }
     }
 
-    .dataBox {
-        max-width: 270px;
-        max-height: calc(100vh - 170px);
-        width: 90%;
-        margin: 15px;
-    }
-
-    // 偷饿了么的样式
-    .styleItem input {}
+    // .dataBox {
+    //     max-width: 270px;
+    //     max-height: calc(100vh - 170px);
+    //     width: 90%;
+    //     margin: 15px;
+    // }
 
     .dataBox {
         display: block;
         resize: vertical;
-        padding: 5px 15px;
+        margin: 20px 35px;
         line-height: 1.5;
         box-sizing: border-box;
-        width: 100%;
+        width: 80%;
         font-size: inherit;
         color: #606266;
         background-color: #fff;
@@ -191,6 +273,82 @@ export default {
             outline: none;
             border-color: #409eff;
         }
-    }
+    }  
 }
+
+// 上传按钮的样式
+    .container {
+            width: 485px;
+            height: 480px;
+            display: flex; 
+             /*换行  */
+            flex-wrap: wrap;
+            /* flex容器在交叉轴上有多行, 该属性生效, 默认值为stretch, 
+            导致flex容器将交叉轴上的多余空间按行数平均分给每行, 所以修改为 flex-start */
+            align-content: flex-start;
+            /* 滚动 */
+            overflow-y: scroll;
+            margin: 20px 35px;
+        }
+
+        /* 上传框 */
+        .upload-dragger {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 3px dashed #C0C4CC;
+            border-radius: 10px;
+            box-sizing: border-box;
+            /* 游标 */
+            cursor: pointer;
+        }
+        .upload-text {
+            color: #C0C4CC;
+            font-size: 13px;
+            /* 文字无法选中 */
+            user-select: none;
+        }
+        .upload-icon path {
+            fill: #C0C4CC;
+        }
+
+        /* 隐藏文件选择按钮 */
+        #upload-input {
+            display: none;
+        }
+
+        /* 鼠标移入上传框 */
+        .upload-dragger:hover {
+            border: 3px dashed skyblue;
+        }
+        /* 拖拽时的样式 */
+        .upload-dragger.drag {
+            border: 3px dashed skyblue;
+        }
+        .upload-dragger.drag .upload-text{
+            color: skyblue;
+        }
+        .upload-dragger.drag .upload-icon path{
+            fill: skyblue;
+        }
+
+        /* 拖拽时子元素禁用指针事件 (因为子元素会继承父元素的拖拽响应) */
+        .upload-dragger.drag * {
+            pointer-events: none;
+        }
+
+        /* 滚动条样式 */
+        .container::-webkit-scrollbar {
+            width: 5px;
+            background-color: transparent;
+        }
+        /* 滑块 */
+        .container::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: rgb(196, 196, 196);
+        }
 </style>

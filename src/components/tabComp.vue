@@ -29,7 +29,7 @@ export default {
     data(){
         return{
             // 将数据转换为Js对象
-            tabList:JSON.parse(this.data).list,
+            tabList:JSON.parse(this.data).txt,
             // 标签选中
             checkIndex:0
         }

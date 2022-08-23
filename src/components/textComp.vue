@@ -21,6 +21,7 @@ export default {
         },
         data:{
             type:String,
+            default:'../assets/微信打赏码.jpg'
         }
     },
     data(){

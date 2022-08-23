@@ -44,7 +44,7 @@ let handle = (attr,dataString)=> {
     }
     // console.log(attribute[2].value);
     // 暴露数据
-    let data = {list:['字节','百度','腾讯','阿里']}
+    let data = {txt:['字节','百度','腾讯','阿里']}
     // 如果有传参数，代表数据有被手动更新，那就使用新的数据
     if(dataString){
         // 由于dataString是一个json对象，所以要将其转换为字符串

@@ -1,6 +1,6 @@
 <template>
     <div class="warpper" >      
-        <img :src="pictureUrl" alt="" :style="setStyle">
+        <img :src="pictureUrl || defaultUrl" alt="" :style="setStyle">
     </div>
 </template>
 
@@ -20,13 +20,17 @@ export default {
     data(){
         return{
             // 将数据转换为Js对象
-            dataMsg:JSON.parse(this.data).fileName
+            dataMsg:JSON.parse(this.data).file,
+            // 默认图片,因为
+            defaultUrl: require('../assets/vx.jpg')
         }
     },
     computed:{
         // 图片的地址
         pictureUrl(){
-            return require('../assets/'+this.dataMsg)
+            // console.log(this.dataMsg);
+            
+            return this.dataMsg
         },
         // 图片的样式
         setStyle(){

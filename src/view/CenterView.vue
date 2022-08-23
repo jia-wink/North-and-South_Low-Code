@@ -32,11 +32,15 @@ export default {
         // 更新组件数组
         updateCompList(val){
             // 找到组件数组中要更新的组件
+            // console.log(val);
             this.components.forEach(item=>{
-                if(item.info.id === val.info.id){
+                // console.log(val.info.id);
+                if(val){
+                    if(item.info.id === val.info.id){
                     item.attribute = val.attribute
                     item.data = val.data
                     item.template = val.template
+                }
                 }
             })
         },
@@ -106,7 +110,7 @@ export default {
                     }
                 })
             }else{
-                console.log('找不到呜呜呜');
+                // console.log('要点组件才可以修改哦');
                 this.focusComp = null
             }
             // 将这个组件传递到页面右侧编辑区域

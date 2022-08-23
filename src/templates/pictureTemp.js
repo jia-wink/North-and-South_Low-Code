@@ -25,11 +25,11 @@ let handle = (attr,dataString)=> {
     }
     // console.log(attribute[2].value);
     // 暴露数据
-    let data = {fileName:'微信打赏码.jpg'}
+    let data = {file:Object,type:'picture'}
     // 如果有传参数，代表数据有被手动更新，那就使用新的数据
     if(dataString){
         // 由于dataString是一个json对象，所以要将其转换为字符串
-        data = JSON.parse(dataString)
+        data.file = dataString
     }
     // 暴露模板
     let template = `<pictureComp ${getAttStr(attribute)} data='${JSON.stringify(data)}'></pictureComp>`
