@@ -3,8 +3,8 @@
     <HeadViewVue @nightDark='nightDark'></HeadViewVue>
     <div class="content-box">
         <LeftViewVue ref="left"></LeftViewVue>
-        <CenterViewVue @throwComp="getComp" ref="center"></CenterViewVue>
-        <RightViewVue :reviseComp="passComp" ref="right" :outNight="night"></RightViewVue>
+        <CenterViewVue @throwComp="getComp" ref="center" :newComp="passComp"></CenterViewVue>
+        <RightViewVue :reviseComp="passComp" ref="right" :outNight="night" @updateComp="newComp"></RightViewVue>
     </div>
   </div>
 </template>
@@ -53,6 +53,10 @@ export default {
         this.$refs.center.centerChange()
         // 控制右边样式(效果不好,改用计算属性了)
         this.$refs.right.rightChange()
+    },
+    // 回去画布更新组件
+    newComp(comp){
+        this.passComp = comp
     }
   }
 }

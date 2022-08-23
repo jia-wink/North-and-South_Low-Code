@@ -76,6 +76,8 @@ export default {
             component.info = this.reviseComp.info
             mountedComponent(component)
             // console.log('ok');
+            // 4.更新画布上的组件
+            this.$emit('updateComp',component)
         },
         // 日夜模式(效果不好,不用了,直接用计算属性)
         rightChange() {
@@ -93,15 +95,15 @@ export default {
                 //     textareaStyle[i].classList.toggle('active')
                 // }
             }
-            console.log(this.outNight);
-            console.log(this.night);
+            // console.log(this.outNight);
+            // console.log(this.night);
         }
     },
     watch: {
         // 监听组件的变化
         reviseComp(val) {
             // console.log(val);
-            // this.dataStr = JSON.stringify(val.data)
+            this.dataStr = JSON.stringify(val.data)
         },
     }
 }

@@ -12,6 +12,10 @@
 import { getId, mountedComponent } from "../utils";
 import getTemplate from "../templates/index";
 export default {
+    props:{
+        // 从右侧更新之后的新组件
+        newComp:Object
+    },
     data() {
         return {
             // 用来存放拖入画布的组件
@@ -25,6 +29,17 @@ export default {
         }
     },
     methods: {
+        // 更新组件数组
+        updateCompList(val){
+            // 找到组件数组中要更新的组件
+            this.components.forEach(item=>{
+                if(item.info.id === val.info.id){
+                    item.attribute = val.attribute
+                    item.data = val.data
+                    item.template = val.template
+                }
+            })
+        },
         // 切换日间/夜间模式
         centerChange(){
             // 通过类名获取dom时,需要在后面加上索引值
@@ -221,6 +236,16 @@ export default {
                         zIndex:`${this.focusComp.position.zIndex}`
                     }
             }
+        }
+    },
+    watch:{
+        // 更新画布上的组件
+        newComp(val){
+            // console.log('监听成功');
+            // 先更改选中组件
+            this.focusComp = val
+            // 再更新组件列表
+            this.updateCompList(val)
         }
     }
 
