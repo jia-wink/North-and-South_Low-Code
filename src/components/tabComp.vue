@@ -1,6 +1,6 @@
 <template>
     <div class="warpper" :style="setStyle">      
-        <div class="tabItem"  @click="checkIndex=index" :class="{'active':checkIndex===index}" v-for="(item,index) in tabList" :key="index" :style="itemStyle">{{item}}</div>
+        <div  class="tabItem"  @click="checkIndex=index" :class="{'active':checkIndex===index}" v-for="(item,index) in tabList" :key="index" :style="itemStyle">{{item}}</div>
     </div>
 </template>
 
@@ -40,14 +40,16 @@ export default {
             return {
                 width:this.tabWidth +'px',
                 // lineHeight:this.height+'px'
+                fontSize:this.fontSize+'px',
+                color:this.color,
             }
         },
         setStyle(){
             return{
                 width:this.width+'px',
                 height:this.height+'px',
-                fontSize:this.fontSize+'px',
-                color:this.color,
+                // fontSize:this.fontSize+'px',
+                // color:this.color,
             }
         }
     }
