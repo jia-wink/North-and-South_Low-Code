@@ -38,6 +38,7 @@ export default {
 
 <style scoped lang="less">
 .wrapper{
+    user-select: none;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -50,6 +51,7 @@ export default {
         cursor: pointer;
         text-align: center;
         // transition: 1s;
+        // user-select: none;
     }
     .active{
         // background-color: skyblue;

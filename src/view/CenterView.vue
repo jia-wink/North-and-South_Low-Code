@@ -1,6 +1,6 @@
 <template>
     <!-- 这里很巧妙地定义了一个点击事件，当内部的组件被点击的时候会冒泡到外部触发点击事件 -->
-    <div id="canvasBox" class="wrapperCenter" @dragover="dragOver" @drop="drop" @click="foucusComp">
+    <div id="canvasBox" class="wrapperCenter" @dragover="dragOver" @drop="drop" @dblclick="foucusComp">
         <div :id="item.info.id" v-for="(item, index) in components" :key="index"></div>
         <!-- 定义一个鼠标选中时才会显示的div -->
         <!-- 定义了@contextmenu鼠标右击事件，@contextmenu.prevent是阻止默认行为，比如浏览器的默认右键菜单等 -->
@@ -75,11 +75,12 @@ export default {
             // const width = compWidth.value
             // const height = compHeight.value
             // 获得鼠标松开时组件离画布左边和上边的距离
-            let left = e.offsetX - compWidth / 2
-            let top = e.offsetY - compHeight / 2
+            // let left = e.offsetX - compWidth / 2
+            let left = this.boundaryLimit('x',e.offsetX - compWidth / 2,component)
+            let top = this.boundaryLimit('y',e.offsetY - compHeight / 2,component)
             // 对left和top进行限制
-            if (left < 0) left = 0
-            if (top < 0) top = 0
+            // if (left < 0) left = 0
+            // if (top < 0) top = 0
             // 将组件的所有位置信息整合到position里
             component.position = { compWidth, compHeight, left, top, zIndex: this.zIndex }
             // 将组件放到组件数组里

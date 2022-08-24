@@ -21,7 +21,7 @@ export default {
         return{
             // 将数据转换为Js对象
             dataMsg:JSON.parse(this.data).file,
-            // 默认图片,因为
+            // 默认图片,用rqequire是要调用地址处理器，否则会地址被解析成一个模块，里面只能放静态资源
             defaultUrl: require('../assets/vx.jpg')
         }
     },

@@ -69,6 +69,8 @@ export default {
             border-radius: 4px;
             cursor: pointer;
             text-align: center;
+            /* 文字无法选中 */
+            user-select: none;
             &:hover{
                 color: white;
                 background: skyblue;
