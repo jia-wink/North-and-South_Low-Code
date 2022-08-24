@@ -9,8 +9,8 @@ const menu = [{
     name:'Tab组件',
     type:'tabComp'
 },{
-    name:'文本组件',
-    type:'textComp'
+    name:'链接组件',
+    type:'aComp'
 },]
 
 // 暴露这个组件列表
