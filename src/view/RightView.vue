@@ -13,7 +13,7 @@
                         @change="updateComp" :style="inputStyle">
                     <!-- 如果是color类型 -->
                     <input class="inputStyle" type="color" name="" id="" v-if="item.type === 'color'"
-                        v-model="item.value" @change="updateComp">
+                        v-model="item.value" @change="updateComp" :style="inputStyle">
                 </div>
             </div>
             <!-- 数据 -->
@@ -33,13 +33,13 @@
                     <input  type="file" name=""  class="upload-input" @change="imgInput" id="upload-input">
                 </div>
                 <textarea v-if="reviseComp.data.txt" class="dataBox" name="" id="" cols="35" rows="10" v-model="dataStr"
-                    @change="updateComp"></textarea>
+                    @change="updateComp" :style="inputStyle"></textarea>
 
 
             </div>
         </div>
         <!-- 没有选中组件时 -->
-        <div class="noneComp" v-else>请选择一个组件~</div>
+        <div class="noneComp" v-else>请选择一个组件(双击)~</div>
     </div>
 </template>
 
@@ -197,7 +197,7 @@ export default {
 <style scoped lang="less">
 .wrapper {
     width: 350px;
-
+    user-select: none;
     .noneComp {
         padding: 15px;
     }

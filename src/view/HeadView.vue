@@ -29,6 +29,7 @@ export default {
 
 <style scoped lang="less">
 .wrapper {
+    user-select: none;
     // background: #85b7e8;
     position: relative;
     height: 80px;

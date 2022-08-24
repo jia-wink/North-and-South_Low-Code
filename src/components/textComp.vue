@@ -52,5 +52,7 @@ span{
     /* overflow: hidden; */
     /* padding: 10px; */
     /* text-align: center; */
+    /* 文字无法选中 */
+    user-select: none;
 }
 </style>
