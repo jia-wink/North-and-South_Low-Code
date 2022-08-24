@@ -7,7 +7,7 @@ let handle = (attr,dataString)=> {
     let attribute = [{
         key:'width',
         name:'宽度',
-        value:'150',
+        value:'130',
         // 这里的type代表最终显示的控制方式是一个输入框，如果是select就是一个下拉
         type:'input',
         // 提示
@@ -15,7 +15,7 @@ let handle = (attr,dataString)=> {
     },{
         key:'height',
         name:'高度',
-        value:'25',
+        value:'100',
         type:'input',
         placehouler:'请输入高度~'
     },{
@@ -43,7 +43,7 @@ let handle = (attr,dataString)=> {
     }
     // console.log(attribute[2].value);
     // 暴露数据
-    let data = {txt:'我是链接组件~'}
+    let data = {txt:'我是链接组件，双击靠下位置进行编辑~'}
 
     // let href={href:'http://www.baidu.com'}
     // 如果有传参数，代表数据有被手动更新，那就使用新的数据
