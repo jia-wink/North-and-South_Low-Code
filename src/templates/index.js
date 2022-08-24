@@ -3,12 +3,14 @@
 import textComp from './textTemp'
 import pictureComp from './pictureTemp'
 import tabComp from './tabTemp'
+import aComp from './aTemp'
 
 // 将处理器放在一个对象里面
 let obj ={
     textComp,
     pictureComp,
-    tabComp
+    tabComp,
+    aComp
 }
 
 // 对外暴露一个方法，通过这个方法动态获取对应的处理器
