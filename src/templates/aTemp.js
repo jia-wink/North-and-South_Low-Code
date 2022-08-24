@@ -7,7 +7,7 @@ let handle = (attr,dataString)=> {
     let attribute = [{
         key:'width',
         name:'宽度',
-        value:'300',
+        value:'150',
         // 这里的type代表最终显示的控制方式是一个输入框，如果是select就是一个下拉
         type:'input',
         // 提示
@@ -15,13 +15,13 @@ let handle = (attr,dataString)=> {
     },{
         key:'height',
         name:'高度',
-        value:'30',
+        value:'25',
         type:'input',
         placehouler:'请输入高度~'
     },{
         key:'color',
         name:'字体颜色',
-        value:'#0000ff',
+        value:'#FF6103',
         type:'color',
         placehouler:'请选择颜色~'
     },{

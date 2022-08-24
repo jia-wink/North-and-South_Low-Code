@@ -58,7 +58,11 @@ export default {
   },
   methods: {
     gohref(href){
-        window.open(href,'_blank')
+        let r=confirm('请问是否要跳转到'+href+'页面？')
+        if(r){
+          window.open(href,'_blank')
+        }
+        
     }
   }
 };
@@ -68,13 +72,15 @@ export default {
 .warpper {
   overflow: hidden;
   .tabItem {
+    border-radius:8px ;
+    text-align: center;
     &:hover {
-      color: white;
-      background: skyblue;
+      color: #FF9912;
+      background: white;
     }
-    &.active {
-      background: skyblue;
-    }
+    // &.active {
+    //   background: red;
+    // }
   }
 }
 </style>
