@@ -228,7 +228,7 @@ export default {
             outline: none;
             padding: 0 15px;
             transition: 0.5s;
-            // transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+            transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
 
             &.active {
                 color: #cfd3dc;
