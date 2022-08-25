@@ -5,13 +5,15 @@ import textComp from './textComp.vue'
 import pictureComp from './pictureComp.vue'
 import tabComp from './tabComp.vue'
 import aComp from './aComp'
+import buttonComp from './buttonComp.vue'
 
 // 由于可能会导入很多组件，所以将这些组件都放在一个对象里面
 let obj = {
     textComp,
     pictureComp,
     tabComp,
-    aComp
+    aComp,
+    buttonComp
 }
 
 // 用install方法注册并使用组件
