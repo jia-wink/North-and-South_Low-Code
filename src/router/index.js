@@ -8,12 +8,16 @@ const routes = [
     {
         path: '/',
         name: 'main',
-        component:()=>import('../main.vue')
+        component:()=>import('../main.vue'),
+        // childern:[{
+        //     path:'/preview',
+        //     comment: ()=>import("../view/preview.vue")
+        // }]
     },
     {
         path:'/preview',
         name:'preview',
-        comment: ()=>import("../view/preview.vue")
+        component: ()=>import("../view/preview.vue")
     }
 ]
 

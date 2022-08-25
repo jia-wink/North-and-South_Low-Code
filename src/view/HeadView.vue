@@ -2,7 +2,9 @@
     <div class="wrapper">
         <h3>North ande South Low-Code</h3>
         <div class="btn-box">
-            <div class="btn active" @click="preview">预览</div>
+            <div class="btn active" @click="preview">预览
+            <!-- <router-link :to="{path: '/preview',nmae:'preview'}"  >lalala</router-link> -->
+            </div>
             <div class="btn">保存</div>
             <div class="btn">发布</div>
             <div id="mybutton" @click="night">
@@ -27,7 +29,9 @@ export default {
         preview() {
             let infoUrl = this.$router.resolve({ name: 'preview'})
             window.open(infoUrl.href, '_blank')
-            console.log(infoUrl);
+            // this.$router.push({ path: "preview",name:"preview" });
+            this.$emit('preview')
+            // console.log(infoUrl);
         }
     }
 }

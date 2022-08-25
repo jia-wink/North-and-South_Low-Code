@@ -1,34 +1,46 @@
 <template>
-    <div class="wrapper">
-        这是预览界面这是预览界面这是预览界面这是预览界面这是预览界面
+    <div class="wrapper" @click="fuck">
+        这是预览界面,还未实现
     </div>
 </template>
 
 <script>
+import bus from "@/utils/bus"
 export default {
-    components:{
+    components: {
 
     },
-    props:{
+    props: {
 
     },
-    data(){
-        return{
-
+    data() {
+        return {
+            previewHtml: 'xoxo'
         }
     },
-    computed:{
+    computed: {
 
     },
-    methods:{
+    methods: {
+        fuck() {
+            bus.$on("message", (data) => {
+                console.log(data);
+                console.log(this.previewHtml);
+            })
+            
+        }
+    },
+    watch: {
 
     },
-    watch:{
-
+    mounted() {
+        bus.$on("message", (data) => {
+                console.log(data);
+                // console.log(this.previewHtml);
+            })
     }
 }
 </script>
 
 <style scoped>
-
 </style>

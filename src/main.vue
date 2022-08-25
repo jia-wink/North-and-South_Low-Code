@@ -1,11 +1,12 @@
 <template>
     <div class="wrapper">
-        <HeadViewVue @nightDark='nightDark'></HeadViewVue>
+        <HeadViewVue @nightDark='nightDark' @preview="preview"></HeadViewVue>
         <div class="content-box">
             <LeftViewVue ref="left"></LeftViewVue>
             <CenterViewVue @throwComp="getComp" ref="center" :newComp="passComp"></CenterViewVue>
             <RightViewVue :reviseComp="passComp" ref="right" :outNight="night" @updateComp="newComp"></RightViewVue>
         </div>
+        <preview @haveHtml="haveHtml" v-show="false"></preview>
     </div>
 </template>
 
@@ -14,6 +15,7 @@ import HeadViewVue from './view/HeadView.vue';
 import LeftViewVue from './view/LeftView.vue';
 import CenterViewVue from './view/CenterView.vue';
 import RightViewVue from './view/RightView.vue';
+import preview from './view/preview.vue'
 
 export default {
     name: 'App',
@@ -21,7 +23,8 @@ export default {
         HeadViewVue,
         LeftViewVue,
         CenterViewVue,
-        RightViewVue
+        RightViewVue,
+        preview
     },
     data() {
         return {
@@ -57,6 +60,14 @@ export default {
         // 回去画布更新组件
         newComp(comp) {
             this.passComp = comp
+        },
+        // 页面预览
+        preview(){
+            this.$refs.center.getHtml()
+        },
+
+        haveHtml(e){
+            console.log(e);
         }
     }
 }
