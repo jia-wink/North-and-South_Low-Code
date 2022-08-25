@@ -1,6 +1,6 @@
 <template>
     <div class="warpper" >      
-        <img :src="pictureUrl || defaultUrl" alt="" :style="setStyle">
+        <video :src="pictureUrl" :style="setStyle"  controls :poster=defaultUrl autoplay="autoplay"></video>
     </div>
 </template>
 
@@ -22,13 +22,13 @@ export default {
             // 将数据转换为Js对象
             dataMsg:JSON.parse(this.data).file,
             // 默认图片,用rqequire是要调用地址处理器，否则会地址被解析成一个模块，里面只能放静态资源
-            defaultUrl: require('../assets/vx.jpg')
+            defaultUrl: require('../assets/播放.jpg')
         }
     },
     computed:{
         // 图片的地址
         pictureUrl(){
-            // console.log(this.dataMsg);
+            console.log(this.dataMsg);
             
             return this.dataMsg
         },

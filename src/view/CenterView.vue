@@ -1,6 +1,6 @@
 <template>
     <!-- 这里很巧妙地定义了一个点击事件，当内部的组件被点击的时候会冒泡到外部触发点击事件 -->
-    <div id="canvasBox" class="wrapperCenter" @dragover="dragOver" @drop="drop" @dblclick="foucusComp">
+    <div id="canvasBox" class="wrapperCenter" @dragover="dragOver" @drop="drop" @dblclick="foucusComp" ref="canvasHtml">
         <div :id="item.info.id" v-for="(item, index) in components" :key="index"></div>
         <!-- 定义一个鼠标选中时才会显示的div -->
         <!-- 定义了@contextmenu鼠标右击事件，@contextmenu.prevent是阻止默认行为，比如浏览器的默认右键菜单等 -->
@@ -11,6 +11,8 @@
 <script>
 import { getId, mountedComponent } from "../utils";
 import getTemplate from "../templates/index";
+// 使用bus进行兄弟组件传值
+import bus from '@/utils/bus'
 export default {
     props:{
         // 从右侧更新之后的新组件
@@ -26,6 +28,7 @@ export default {
             focusComp:null,
             // 用来记录鼠标移动组件时的坐标
             starPosition:{x:0,y:0}
+            // 用来存放画布的值
         }
     },
     methods: {
@@ -214,6 +217,20 @@ export default {
                 document.getElementById(this.focusComp.info.id).remove()
             }
             this.focusComp = null
+        },
+        // 获取画布内容
+        getHtml(){
+            
+            // const canvasHtml = this.$refs.canvasHtml.$el.innerHtml
+            setTimeout(()=>{
+                let canvasHtml = document.getElementById('canvasBox')
+                // console.log(canvasHtml);
+                // bus.$emit('message',canvasHtml)
+                this.$emit('haveHtml',canvasHtml)
+            },4)
+            
+            // 
+            // console.log(canvasHtml);
         }   
     },
     computed:{

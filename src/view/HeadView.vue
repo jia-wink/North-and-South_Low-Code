@@ -2,7 +2,9 @@
     <div class="wrapper">
         <h3>North ande South Low-Code</h3>
         <div class="btn-box">
-            <div class="btn active">预览</div>
+            <div class="btn active" @click="preview">预览
+            <!-- <router-link :to="{path: '/preview',nmae:'preview'}"  >lalala</router-link> -->
+            </div>
             <div class="btn">保存</div>
             <div class="btn">发布</div>
             <div id="mybutton" @click="night">
@@ -14,14 +16,22 @@
 
 <script>
 export default {
-    methods:{
+    methods: {
         // 切换日间\夜间模式,并且将方法传出到APP.vue
-        night(){
+        night() {
             const mybutton = document.getElementById('mybutton');
             const borderactive = document.getElementsByClassName('wrapper')[0];
             mybutton.classList.toggle('active')
             borderactive.classList.toggle('active')
             this.$emit('nightDark')
+        },
+        // 实现页面预览
+        preview() {
+            let infoUrl = this.$router.resolve({ name: 'preview'})
+            window.open(infoUrl.href, '_blank')
+            // this.$router.push({ path: "preview",name:"preview" });
+            this.$emit('preview')
+            // console.log(infoUrl);
         }
     }
 }
@@ -39,32 +49,37 @@ export default {
     padding: 10px;
     align-items: center;
     // border-bottom: 1px solid #eee;
-    box-shadow: 0px 5px 5px rgba(126, 126, 126,0.1);
+    box-shadow: 0px 5px 5px rgba(126, 126, 126, 0.1);
     transition: 0.5s;
     z-index: 99;
+
     .btn-box {
         display: flex;
         width: 200px;
         justify-content: space-around;
-        .btn{
+
+        .btn {
             background: white;
             color: #333;
             font-size: 13px;
             padding: 2px 10px;
             border-radius: 4px;
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 color: white;
                 background: skyblue;
             }
         }
-        
+
     }
-    &.active{
-        box-shadow: 0px 5px 10px rgba(0, 0, 0,0.5);
+
+    &.active {
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
     }
 }
-#mybutton{
+
+#mybutton {
     position: relative;
     display: block;
     height: 16px;
@@ -72,20 +87,22 @@ export default {
     border-radius: 16px;
     background-color: #f4f4f4;
     box-shadow: inset 0 2px 60px rgba(0, 0, 0, 0.1),
-                inset 0 2px 8px rgba(0, 0, 0, 0.1),
-                inset 0 -4px 4px rgba(0, 0, 0, 0.05);
+        inset 0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 -4px 4px rgba(0, 0, 0, 0.05);
     /* cursor是光标属性，当鼠标悬浮在上方时变成一个手 */
-    cursor:pointer;
+    cursor: pointer;
     /* 添加过渡动画，时长为0.5s */
     transition: 0.5s;
 }
-#mybutton.active{
+
+#mybutton.active {
     background-color: rgb(85, 84, 84);
     box-shadow: inset 0 8px 60px rgba(0, 0, 0, 0.1),
-                inset 0 8px 8px rgba(0, 0, 0, 0.1),
-                inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+        inset 0 8px 8px rgba(0, 0, 0, 0.1),
+        inset 0 -4px 4px rgba(0, 0, 0, 0.1);
 }
-.circle{
+
+.circle {
     position: absolute;
     height: 16px;
     width: 16px;
@@ -97,7 +114,8 @@ export default {
     /* 添加过渡动画，时长为0.5s */
     transition: 0.5s;
 }
-#mybutton.active .circle{
+
+#mybutton.active .circle {
     right: 16px;
     background-color: black;
 }
