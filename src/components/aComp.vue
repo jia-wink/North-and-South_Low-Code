@@ -1,5 +1,5 @@
 <template>
-  <div class="warpper" :style="setStyle">
+  <div class="warpper">
     <!-- <div
       class="tabItem"
       @click="checkIndex=index"
@@ -9,8 +9,11 @@
       :style="itemStyle"
     >{{item}}</div>-->
     <!-- 照搬不能用循环，否则一行一个字 -->
-    
-    <div class="tabItem" @click="gohref(href)">{{dataList}}</div>
+
+    <div class="tabItem" :style="setStyle">
+      {{dataList}}
+      <el-button type="primary" round size="mini" @click="gohref(href)">跳转</el-button>
+    </div>
   </div>
 </template>
 
@@ -57,12 +60,11 @@ export default {
     }
   },
   methods: {
-    gohref(href){
-        let r=confirm('请问是否要跳转到'+href+'页面？')
-        if(r){
-          window.open(href,'_blank')
-        }
-        
+    gohref(href) {
+      let r = confirm("请问是否要跳转到" + href + "页面？");
+      if (r) {
+        window.open(href, "_blank");
+      }
     }
   }
 };
@@ -71,11 +73,14 @@ export default {
 <style scoped lang="less">
 .warpper {
   overflow: hidden;
+  // 文字不能被选中
+  user-select: none;
   .tabItem {
-    border-radius:8px ;
+    border-radius: 8px;
     text-align: center;
+    color: #409eff;
     &:hover {
-      color: #FF9912;
+      color: #1e80ff;
       background: white;
     }
     // &.active {

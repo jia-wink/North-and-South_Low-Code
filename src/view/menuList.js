@@ -17,8 +17,15 @@ const menu = [{
 },{
     name:'视频组件',
     type:'videoComp'
+},{
+    name:'单选组件',
+    type:'radioComp'
+},{
+    name:'多选组件',
+    type:'checkboxComp'
 }
 ]
+
 
 // 暴露这个组件列表
 export default menu

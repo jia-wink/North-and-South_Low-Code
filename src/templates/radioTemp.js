@@ -7,7 +7,7 @@ let handle = (attr,dataString)=> {
     let attribute = [{
         key:'width',
         name:'宽度',
-        value:'150',
+        value:'300',
         // 这里的type代表最终显示的控制方式是一个输入框，如果是select就是一个下拉
         type:'input',
         // 提示
@@ -15,13 +15,20 @@ let handle = (attr,dataString)=> {
     },{
         key:'height',
         name:'高度',
+        value:'40',
+        type:'input',
+        placehouler:'请输入高度~'
+    },
+    {
+        key:'tabWidth',
+        name:'标签宽度',
         value:'50',
         type:'input',
         placehouler:'请输入高度~'
     },{
         key:'color',
         name:'字体颜色',
-        value:'#409EFF',
+        value:'#000000',
         type:'color',
         placehouler:'请选择颜色~'
     },{
@@ -30,12 +37,6 @@ let handle = (attr,dataString)=> {
         value:'14',
         type:'input',
         placehouler:'请输入字体大小~'
-    },{
-        key:'href',
-        name:'链接地址',
-        value:'https://www.baidu.com',
-        type:'input',
-        placehouler:'请输入链接地址~'
     }]
     // 如果有传参数，代表样式有被手动更新，那就使用新的样式
     if(attr){
@@ -43,23 +44,15 @@ let handle = (attr,dataString)=> {
     }
     // console.log(attribute[2].value);
     // 暴露数据
-    let data = {txt:'我是链接组件~'}
-
-    // let href={href:'http://www.baidu.com'}
+    let data = {txt:['男','女']}
     // 如果有传参数，代表数据有被手动更新，那就使用新的数据
     if(dataString){
         // 由于dataString是一个json对象，所以要将其转换为字符串
-        data = JSON.parse(dataString)        
-        
+        data = JSON.parse(dataString)
     }
-    debugger;
-    
     // 暴露模板
-    let template = `<aComp ${getAttStr(attribute)} data='${JSON.stringify(data)}'></aComp>`
-
-    // href='${JSON.stringify(href)
+    let template = `<radioComp ${getAttStr(attribute)} data='${JSON.stringify(data)}'></radioComp>`
     return {attribute,data,template}
 }
 
 export default handle
-
