@@ -6,6 +6,7 @@ import pictureComp from './pictureComp.vue'
 import tabComp from './tabComp.vue'
 import aComp from './aComp'
 import buttonComp from './buttonComp.vue'
+import videoComp from './videoComp.vue'
 
 // 由于可能会导入很多组件，所以将这些组件都放在一个对象里面
 let obj = {
@@ -13,7 +14,8 @@ let obj = {
     pictureComp,
     tabComp,
     aComp,
-    buttonComp
+    buttonComp,
+    videoComp
 }
 
 // 用install方法注册并使用组件

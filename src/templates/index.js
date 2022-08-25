@@ -5,6 +5,7 @@ import pictureComp from './pictureTemp'
 import tabComp from './tabTemp'
 import aComp from './aTemp'
 import buttonComp from './buttonComp'
+import videoComp from './videoTemp'
 
 // 将处理器放在一个对象里面
 let obj ={
@@ -12,7 +13,8 @@ let obj ={
     pictureComp,
     tabComp,
     aComp,
-    buttonComp
+    buttonComp,
+    videoComp
 }
 
 // 对外暴露一个方法，通过这个方法动态获取对应的处理器

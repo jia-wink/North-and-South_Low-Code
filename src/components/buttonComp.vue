@@ -1,6 +1,6 @@
 <template>
-    <div class="warpper" :style="setStyle">      
-        <button class="my-btn" @click="gobtn()" :disabled="isDisable">
+    <div class="warpper" >      
+        <button class="my-btn" @click="gobtn()" :disabled="isDisable" :style="setStyle">
             {{dataMsg}}
             <!-- 插槽 外部数据插入 -->
             <slot></slot>
@@ -52,7 +52,7 @@ export default {
     methods: {
         gobtn(){
             alert('点击按钮')
-        //点击按钮之后禁用按钮
+        // 点击按钮之后禁用按钮
             this.isDisable = true
 
             setTimeout(() => {
@@ -66,11 +66,12 @@ export default {
 
 <style scoped>
 .warpper{
+    user-select: none;
     overflow: hidden;
     height: 100px;
 }
 .my-btn {
-    height: 40px;
+    height: 20px;
     width: 80px;
     overflow: hidden;
     border-radius: 4px;
@@ -78,6 +79,7 @@ export default {
     border: 1px solid #ccc;
     outline: none;
     background-color: #fff;
+    
 }
 .my-btn:hover {
     background-color: skyblue;

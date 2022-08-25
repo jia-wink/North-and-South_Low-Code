@@ -14,7 +14,10 @@ const menu = [{
 },{
     name:'按钮组件',
     type:'buttonComp'
-},
+},{
+    name:'视频组件',
+    type:'videoComp'
+}
 ]
 
 // 暴露这个组件列表
