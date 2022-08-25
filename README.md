@@ -1,4 +1,4 @@
-# my-lowcode 项目使用文档
+﻿# my-lowcode 项目使用文档
 
 ## 首先克隆项目
 
@@ -34,7 +34,7 @@ yarn serve
 
 如果您在使用此命令运行项目的时候报出以下错误：
 
-![image-20220825193604125](C:/Users/闫池/AppData/Roaming/Typora/typora-user-images/image-20220825193604125.png)
+![image-20220825193604125](https://img2022.cnblogs.com/blog/2823867/202208/2823867-20220825194756376-552584522.png)
 
 这是由于您的系统用户名为中文导致的，这里给出了三个解决办法：
 
