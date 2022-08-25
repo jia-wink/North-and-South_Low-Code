@@ -11,6 +11,9 @@ const menu = [{
 },{
     name:'链接组件',
     type:'aComp'
+},{
+    name:'多选组件',
+    type:'checkboxComp'
 },]
 
 // 暴露这个组件列表

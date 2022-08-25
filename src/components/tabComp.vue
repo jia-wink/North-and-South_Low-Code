@@ -71,6 +71,10 @@ export default {
             text-align: center;
             /* 文字无法选中 */
             user-select: none;
+            
+            display: flex;
+            align-items: center;
+
             &:hover{
                 color: white;
                 background: skyblue;

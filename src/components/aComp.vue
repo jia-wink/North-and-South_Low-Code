@@ -10,7 +10,13 @@
     >{{item}}</div>-->
     <!-- 照搬不能用循环，否则一行一个字 -->
     
-    <div class="tabItem" @click="gohref(href)">{{dataList}}</div>
+    <div class="tabItem" >
+      <div>{{dataList}}</div>
+      <!-- <el-link type="primary">主要链接</el-link> -->
+      <!-- <button  class="btn">跳转</button> -->
+      <el-button class="btn" type="primary" round size="mini" @click="gohref(href)">跳转</el-button>
+
+    </div>
   </div>
 </template>
 
@@ -71,16 +77,22 @@ export default {
 <style scoped lang="less">
 .warpper {
   overflow: hidden;
+  // 文字不能被选中
+  user-select: none;
   .tabItem {
     border-radius:8px ;
     text-align: center;
+    color: #409EFF;
     &:hover {
-      color: #FF9912;
+      color: #1E80FF;
       background: white;
     }
     // &.active {
     //   background: red;
     // }
+  }
+  .btn{
+    // background-color: skyblue;
   }
 }
 </style>
