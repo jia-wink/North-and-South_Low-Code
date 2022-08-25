@@ -11,7 +11,11 @@ const menu = [{
 },{
     name:'链接组件',
     type:'aComp'
-},]
+},{
+    name:'按钮组件',
+    type:'buttonComp'
+},
+]
 
 // 暴露这个组件列表
 export default menu
